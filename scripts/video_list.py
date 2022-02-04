@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from data_loader import dump_json
+from reducto.data_loader import dump_json
 
 if __name__ == '__main__':
     dataset_root = '/mnt/shared/dataset'

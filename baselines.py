@@ -19,12 +19,12 @@ actual_size = 2113284
 
 video_root = '/mnt/ssd2t/dataset'
 #
-# segment_duration = 5.0
-# num_bootstrapping_seg = 5
-# divided_by = 4
-#
-# target_acc = 0.90
-# tinyyolo_acc = 0.6  # 23.7 / 57.9
+segment_duration = 5.0
+num_bootstrapping_seg = 5
+divided_by = 4
+
+target_acc = 0.90
+tinyyolo_acc = 0.6  # 23.7 / 57.9
 # datasets = [
 #     {
 #         'dataset': 'auburn',

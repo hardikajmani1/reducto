@@ -50,6 +50,7 @@ class Videoer:
             self.send_video(generated_video_path)
         # advances iterator and returns True, accounting for the sent video
         self.index += 1
+        logging.info(self.index)
         return True
 
     @staticmethod

@@ -8,6 +8,7 @@ import cv2
 import numpy as np
 import requests
 import tensorflow as tf
+import tf_slim as slim
 
 from reducto.data_loader import load_yaml
 from reducto.video_processor import VideoProcessor
@@ -189,6 +190,8 @@ class Yolo(ObjectDetectionModel):
             saver.save(sess, save_path=weight_ckpt_file)
 
     def _load_weights(self, weight_root=f'{os.getenv("model_root", "weights")}/yolov3'):
+        tf.compat.v1.disable_eager_execution()
+        weight_root = "weights/yolov3"
         weight_ckpt_file = f'{weight_root}/yolov3.ckpt'
         # Loads weights
         self.input_data = tf.compat.v1.placeholder(
@@ -350,7 +353,7 @@ class Yolo(ObjectDetectionModel):
             cv2.imwrite(f'imges/{i}.jpg', img_ori)
 
     def forward(self, inputs, is_training=False, reuse=False):
-        slim = tf.contrib.slim
+        # slim = tf.contrib.slim
         # the input img_size, form: [height, weight], will be used later
         self.img_size = tf.shape(inputs)[1:3]
         # set batch norm params
@@ -693,7 +696,7 @@ class Yolo(ObjectDetectionModel):
 
         if strides > 1:
             inputs = _fixed_padding(inputs, kernel_size)
-        inputs = tf.contrib.slim.conv2d(inputs, filters, kernel_size, stride=strides,
+        inputs = slim.conv2d(inputs, filters, kernel_size, stride=strides,
                                         padding=('SAME' if strides == 1 else 'VALID'))
         return inputs
 
