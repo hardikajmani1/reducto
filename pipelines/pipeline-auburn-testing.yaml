@@ -2,7 +2,7 @@ environs:
   dataset_root: '/home/lucifer/Documents/Uchicago/winter 22/practicum/dataset'
   thresh_root: 'config/threshes'
   dataset_name: auburn
-  subsets: [raw000]
+  subsets: [raw001]
 mongo:
   host: localhost
   port: 27017
@@ -17,19 +17,19 @@ motioner:
 evaluator:
   - type: coco
     class: [0]
-#  - type: coco
-#    class: [2]
-#  - type: coco
-#    class: [0, 2]
-#  - type: counting
-#    class: [0]
-#  - type: counting
-#    class: [2]
-#  - type: counting
-#    class: [0, 2]
-#  - type: tagging
-#    class: [0]
-#  - type: tagging
-#    class: [2]
-#  - type: tagging
-#    class: [0, 2]
+  - type: coco
+    class: [2]
+  - type: coco
+    class: [0, 2]
+  - type: counting
+    class: [0]
+  - type: counting
+    class: [2]
+  - type: counting
+    class: [0, 2]
+  - type: tagging
+    class: [0]
+  - type: tagging
+    class: [2]
+  - type: tagging
+    class: [0, 2]
