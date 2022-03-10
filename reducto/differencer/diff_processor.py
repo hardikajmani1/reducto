@@ -3,7 +3,7 @@ import configparser
 import cv2
 import imutils
 import numpy as np
-
+import time
 from reducto.video_processor import VideoProcessor
 
 
@@ -38,6 +38,7 @@ class DiffProcessor:
         estimations = [1.0]
         with VideoProcessor(video_path) as video:
             prev_frame = next(video)
+            start_time = time.time()
             prev_feat = self.get_frame_feature(prev_frame)
             for frame in video:
                 feat = self.get_frame_feature(frame)
@@ -49,6 +50,7 @@ class DiffProcessor:
                 else:
                     estimations.append((self.thresh - dis) / self.thresh)
             total_frames = video.index
+            end_time = time.time()
         result = {
             'feature': self.feature,
             'thresh': self.thresh,
@@ -56,7 +58,8 @@ class DiffProcessor:
             'num_selected_frames': len(selected_frames),
             'num_total_frames': total_frames,
             'fraction': len(selected_frames) / total_frames,
-            'estimation': sum(estimations) / len(estimations)
+            'estimation': sum(estimations) / len(estimations),
+            'time_elasped': end_time - start_time
         }
         return result
 

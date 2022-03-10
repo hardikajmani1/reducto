@@ -29,7 +29,8 @@ class ObjectDetectionModel:
                     frame = transformer(frame)
                 result[video.index] = self._infer_image(frame)
         time_end = time.time()
-        # logging.info(f'{video_name},inference,,{time_start},{time_end},{time_end - time_start}')
+        logging.info(f'{video_name},inference,,{time_start},{time_end},{time_end - time_start}')
+        print(f'{video_name},inference,,{time_start},{time_end},{time_end - time_start}')
         return result
 
     def _infer_image(self, frame):

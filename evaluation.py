@@ -1,5 +1,5 @@
 from pathlib import Path
-
+from baselines import get_segments
 from reducto.codec import get_video_size
 from reducto.utils import is_interactive
 
