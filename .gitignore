@@ -76,6 +76,7 @@ Temporary Items
 # *.iml
 # *.ipr
 
+
 # CMake
 cmake-build-*/
 
@@ -286,3 +287,6 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
+
+*.pt
+*.csv
