@@ -10,8 +10,8 @@ inference:
   type: yolo
 differencer:
   use_dict: true
-#  types: [area, pixel, edge]
-  types: [pixel]
+  types: [area, pixel, edge]
+#  types: [pixel]
 motioner:
   type: adapative_bg_learning
 evaluator:

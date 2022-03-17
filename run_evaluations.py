@@ -1,21 +1,21 @@
-# %%
+
 from pathlib import Path
 from reducto.data_loader import dump_json
 
-# %%
-#dataset_root = '/home/lucifer/Documents/Uchicago/winter 22/practicum/dataset'
-dataset_root = '/Users/hardikajmani/Documents/uchicago/winter 22/Practicum/dataset'
+
+
+dataset_root = '/home/cc/hardik/dataset/'
 names        = ['auburn']
 
 
-# %%
+
 video_list = {
     name: {
         subset.name: [
             segment.name
             for segment
             in sorted((Path(dataset_root) / name / subset).iterdir())
-            if segment.match('segment???.mp4')]
+            if segment.match('*.mp4')]
         for subset in [
             s
             for s
@@ -27,35 +27,35 @@ video_list = {
 }
 
 
-# %%
+
 video_list
 
-# %%
+
 dump_json(video_list, 'video_list.json')
 
-# %% [markdown]
+
 # vidoer.py
 
-# %%
+
 import argparse
 from pathlib import Path
 from reducto.differencer import PixelDiff, AreaDiff, CornerDiff, EdgeDiff
 from reducto.videoer import Videoer
 
-# %%
+
 #dataset_root = '/home/lucifer/Documents/Uchicago/winter 22/practicum/dataset'
 dataset_name = 'auburn'
-subset_pattern = 'raw001'
+subset_pattern = 'raw000'
 segment_root = Path(dataset_root) / dataset_name / subset_pattern
-segments = [f for f in sorted(segment_root.iterdir()) if f.match('segment???.mp4')]
+segments = [f for f in sorted(segment_root.iterdir()) if f.match('*.mp4')]
 segments
 
-# %%
+
 videoer = Videoer(dataset_root=dataset_root,
                       dataset_name=dataset_name,
                       subset_pattern=subset_pattern)
 
-# %%
+
 dps = [
         PixelDiff(thresh=0.01),
         AreaDiff(thresh=0.01),
@@ -63,13 +63,13 @@ dps = [
         EdgeDiff(thresh=0.01)
     ]
 
-# %%
+
 for dp in dps:
         sent = videoer.send_next(dp)
         while sent is True:
             sent = videoer.send_next(dp)
 
-# %%
+
 import argparse
 import functools
 import multiprocessing as mp
@@ -86,40 +86,40 @@ from reducto.model import Segment, Inference, InferenceResult, DiffVector, Frame
 
 from tqdm import tqdm
 
-# %%
+
 configuration = 'pipelines/pipeline-auburn-testing.yaml'
 with open(configuration, 'r') as y:
     config = yaml.load(y, Loader=yaml.FullLoader)
 config
 
-# %%
-subsets = ['raw001']
+
+subsets = ['raw000']
 segments = []
-segment_pattern = 'segment???.mp4'
+segment_pattern = '*.mp4'
 for ss in subsets:
     p = Path(dataset_root) / dataset_name / ss
     segments += [f for f in sorted(p.iterdir()) if f.match(segment_pattern)]
 segments
 
-# %%
+
 mongo_host = config['mongo']['host']
 mongo_port = config['mongo']['port']
 mongoengine.connect(dataset_name, host=mongo_host, port=mongo_port)
 print(f'connected to {mongo_host}:{mongo_port} on dataset {dataset_name}')
 
 
-# %%
+
 differ_dict_path = Path(config['environs']['thresh_root']) / f'{dataset_name}.json'
 differ_types = config['differencer']['types']
 
 
-# %%
+
 import tensorflow as tf
 import tf_slim as slim
 
 tf.compat.v1.disable_eager_execution()
 
-# %%
+
 # component preparation
 no_session = False
 model = Yolo(no_session=no_session)
@@ -127,10 +127,10 @@ differ = DiffComposer.from_jsonfile(differ_dict_path, differ_types)
 evaluator = MetricComposer.from_json(config['evaluator'])
 
 
-# %%
+
 skip_diffeval = False
 
-# %%
+
 # pipeline running
 pbar = tqdm(total=len(segments))
 for segment in segments:
@@ -224,7 +224,7 @@ for segment in segments:
     pbar.update()
 
 
-# %%
+
 
 
 
