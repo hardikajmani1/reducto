@@ -5,7 +5,7 @@ experiment/
 .vscode/
 
 # added by yuanqi
-data/
+# data/
 notebooks/
 weights/
 scratch.py
