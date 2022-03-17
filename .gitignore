@@ -6,7 +6,7 @@ experiment/
 
 # added by yuanqi
 # data/
-notebooks/
+# notebooks/
 weights/
 scratch.py
 
